@@ -74,16 +74,6 @@ signing {
 uploadArchives {
     configuration = configurations.archives
     repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-        repository(url: sonatypeRepo) {
-            authentication(userName: sonatypeUsername,
-                    password: sonatypePassword)
-        }
-        snapshotRepository(url: sonatypeSnapshotRepo) {
-            authentication(userName: sonatypeUsername,
-                    password: sonatypePassword)
-        }
 
         pom.project {
             name 'Smart Location Library'
