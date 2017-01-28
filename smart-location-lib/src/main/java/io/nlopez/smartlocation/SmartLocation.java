@@ -15,6 +15,7 @@ import io.nlopez.smartlocation.geofencing.GeofencingProvider;
 import io.nlopez.smartlocation.geofencing.model.GeofenceModel;
 import io.nlopez.smartlocation.location.LocationProvider;
 import io.nlopez.smartlocation.location.config.LocationParams;
+import io.nlopez.smartlocation.location.providers.LocationManagerProvider;
 import io.nlopez.smartlocation.location.utils.LocationState;
 import io.nlopez.smartlocation.utils.Logger;
 import io.nlopez.smartlocation.utils.LoggerFactory;
@@ -43,6 +44,11 @@ public class SmartLocation {
 
     public static SmartLocation with(Context context) {
         return new Builder(context).build();
+    }
+
+
+    public SmartLocation.LocationControl location() {
+        return this.location(new LocationManagerProvider());
     }
 
     /**

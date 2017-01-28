@@ -1,16 +1,7 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-    }
-}
-
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
-apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven'
 
 group='com.github.federicoiosue'
 version='3.2.5'
@@ -49,15 +40,3 @@ android {
     }
 
 }
-
-android.libraryVariants
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifact "build/libs/SmartLocation-${version}.aar"
-            artifactId 'library'
-        }
-    }
-}
-
-

@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile project(':library')
+    compile project(':smart-location-lib')
     compile 'com.android.support:appcompat-v7:23.0.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
