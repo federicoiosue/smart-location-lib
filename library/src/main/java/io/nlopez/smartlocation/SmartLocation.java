@@ -5,23 +5,16 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.android.gms.location.DetectedActivity;
-
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import io.nlopez.smartlocation.activity.ActivityProvider;
-import io.nlopez.smartlocation.activity.config.ActivityParams;
-import io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider;
 import io.nlopez.smartlocation.geocoding.GeocodingProvider;
 import io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider;
 import io.nlopez.smartlocation.geofencing.GeofencingProvider;
 import io.nlopez.smartlocation.geofencing.model.GeofenceModel;
-import io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider;
 import io.nlopez.smartlocation.location.LocationProvider;
 import io.nlopez.smartlocation.location.config.LocationParams;
-import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesWithFallbackProvider;
 import io.nlopez.smartlocation.location.utils.LocationState;
 import io.nlopez.smartlocation.utils.Logger;
 import io.nlopez.smartlocation.utils.LoggerFactory;
@@ -53,13 +46,6 @@ public class SmartLocation {
     }
 
     /**
-     * @return request handler for location operations
-     */
-    public LocationControl location() {
-        return location(new LocationGooglePlayServicesWithFallbackProvider(context));
-    }
-
-    /**
      * @param provider location provider we want to use
      * @return request handler for location operations
      */
@@ -67,38 +53,25 @@ public class SmartLocation {
         return new LocationControl(this, provider);
     }
 
-    /**
-     * Builder for activity recognition. Use activity() instead.
-     *
-     * @return builder for activity recognition.
-     * @deprecated
-     */
-    @Deprecated
-    public ActivityRecognitionControl activityRecognition() {
-        return activity();
-    }
+//    /**
+//     * Builder for activity recognition. Use activity() instead.
+//     *
+//     * @return builder for activity recognition.
+//     * @deprecated
+//     */
+//    @Deprecated
+//    public ActivityRecognitionControl activityRecognition() {
+//        return activity();
+//    }
 
-    /**
-     * @return request handler for activity recognition
-     */
-    public ActivityRecognitionControl activity() {
-        return activity(new ActivityGooglePlayServicesProvider());
-    }
 
-    /**
-     * @param activityProvider activity provider we want to use
-     * @return request handler for activity recognition
-     */
-    public ActivityRecognitionControl activity(ActivityProvider activityProvider) {
-        return new ActivityRecognitionControl(this, activityProvider);
-    }
-
-    /**
-     * @return request handler for geofencing operations
-     */
-    public GeofencingControl geofencing() {
-        return geofencing(new GeofencingGooglePlayServicesProvider());
-    }
+//    /**
+//     * @param activityProvider activity provider we want to use
+//     * @return request handler for activity recognition
+//     */
+//    public ActivityRecognitionControl activity(ActivityProvider activityProvider) {
+//        return new ActivityRecognitionControl(this, activityProvider);
+//    }
 
     /**
      * @param geofencingProvider geofencing provider we want to use
@@ -310,54 +283,6 @@ public class SmartLocation {
         }
     }
 
-
-    public static class ActivityRecognitionControl {
-        private static final Map<Context, ActivityProvider> MAPPING = new WeakHashMap<>();
-
-        private final SmartLocation smartLocation;
-        private ActivityParams params;
-        private ActivityProvider provider;
-
-        public ActivityRecognitionControl(@NonNull SmartLocation smartLocation, @NonNull ActivityProvider activityProvider) {
-            this.smartLocation = smartLocation;
-            params = ActivityParams.NORMAL;
-
-            if (!MAPPING.containsKey(smartLocation.context)) {
-                MAPPING.put(smartLocation.context, activityProvider);
-            }
-            provider = MAPPING.get(smartLocation.context);
-
-            if (smartLocation.preInitialize) {
-                provider.init(smartLocation.context, smartLocation.logger);
-            }
-        }
-
-        public ActivityRecognitionControl config(@NonNull ActivityParams params) {
-            this.params = params;
-            return this;
-        }
-
-        @Nullable
-        public DetectedActivity getLastActivity() {
-            return provider.getLastActivity();
-        }
-
-        public ActivityRecognitionControl get() {
-            return this;
-        }
-
-        public void start(OnActivityUpdatedListener listener) {
-            if (provider == null) {
-                throw new RuntimeException("A provider must be initialized");
-            }
-            provider.start(listener, params);
-        }
-
-        public void stop() {
-            provider.stop();
-        }
-
-    }
 
     public static class GeofencingControl {
         private static final Map<Context, GeofencingProvider> MAPPING = new WeakHashMap<>();

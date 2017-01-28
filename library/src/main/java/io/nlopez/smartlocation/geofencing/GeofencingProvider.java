@@ -8,9 +8,6 @@ import io.nlopez.smartlocation.OnGeofencingTransitionListener;
 import io.nlopez.smartlocation.geofencing.model.GeofenceModel;
 import io.nlopez.smartlocation.utils.Logger;
 
-/**
- * Created by mrm on 20/12/14.
- */
 public interface GeofencingProvider {
     void init(Context context, Logger logger);
 

@@ -1,10 +1,5 @@
 package io.nlopez.smartlocation.geofencing.model;
 
-import com.google.android.gms.location.Geofence;
-
-/**
- * Created by mrm on 4/1/15.
- */
 public class GeofenceModel {
     private String requestId;
     private double latitude;
@@ -52,15 +47,15 @@ public class GeofenceModel {
         return loiteringDelay;
     }
 
-    public Geofence toGeofence() {
-        return new Geofence.Builder()
-                .setCircularRegion(latitude, longitude, radius)
-                .setExpirationDuration(expiration)
-                .setRequestId(requestId)
-                .setTransitionTypes(transition)
-                .setLoiteringDelay(loiteringDelay)
-                .build();
-    }
+//    public Geofence toGeofence() {
+//        return new Geofence.Builder()
+//                .setCircularRegion(latitude, longitude, radius)
+//                .setExpirationDuration(expiration)
+//                .setRequestId(requestId)
+//                .setTransitionTypes(transition)
+//                .setLoiteringDelay(loiteringDelay)
+//                .build();
+//    }
 
     public static class Builder {
         private String requestId;
