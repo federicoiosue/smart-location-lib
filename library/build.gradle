@@ -12,9 +12,8 @@ apply plugin: 'maven-publish'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-
-version '3.2.4'
-group 'io.nlopez.smartlocation'
+group='com.github.federicoiosue'
+version='3.2.5'
 
 dependencies {
     repositories {
@@ -61,47 +60,4 @@ publishing {
     }
 }
 
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
 
-signing {
-    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-    sign configurations.archives
-}
-
-uploadArchives {
-    configuration = configurations.archives
-    repositories.mavenDeployer {
-
-        pom.project {
-            name 'Smart Location Library'
-            packaging 'aar'
-            description 'This library handles all the boilerplate and repetitive code used when playing with Locations in Android projects.'
-            url 'https://github.com/mrmans0n/smart-location-lib'
-            artifactId 'library'
-
-            scm {
-                url 'scm:git@github.com:mrmans0n/smart-location-lib.git'
-                connection 'scm:git@github.com:mrmans0n/smart-location-lib.git'
-                developerConnection 'scm:git@github.com:mrmans0n/smart-location-lib.git'
-            }
-
-            licenses {
-                license {
-                    name 'MIT license'
-                    url 'http://www.opensource.org/licenses/mit-license.php'
-                    distribution 'repo'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'mrmans0n'
-                    name 'Nacho Lopez'
-                    email 'nacho@nlopez.io'
-                }
-            }
-        }
-    }
-}
