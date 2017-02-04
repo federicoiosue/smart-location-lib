@@ -1,1 +1,1 @@
-include ':sample', 'smart-location-lib'
+include 'smart-location-lib'
